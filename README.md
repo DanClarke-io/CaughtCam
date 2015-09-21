@@ -8,18 +8,19 @@ This repo serves as a home for the code for the PHP scraper, aswell as the App.
 
 This is currently what the output from the scraper looks like:
 
-	<dict>
-		<key>name</key>
-		<string>Mansfield: Shop Theft</string>
-		<key>image</key>
-		<string>http://www.nottinghamshire.police.uk/sites/default/files/styles/police_appeals_thumbnail/public/CoC%2C%20Shop%20Theft%2C%20Mansfield.jpg?itok=8h49dEkG</string>
-		<key>link</key>
-		<string>f=</string>
-		<key>date</key>
-		<string>Not supplied</string>
-		<key>article</key>
-		<string><![CDATA[Recognise this man? &nbsp;]]></string>
-	</dict>
+    {
+        "link": "f=",
+        "image": "http:\/\/www.nottinghamshire.police.uk\/sites\/default\/files\/styles\/police_appeals_thumbnail\/public\/caught%20on%20camera%2C%20Kings%20Stores%2C%20Ordsall.jpg?itok=2y4Nte9X",
+        "title": "Ordsall: Shop Theft",
+        "text": "Do you know this man?\n&nbsp;",
+        "date": "Not supplied"
+    },
+
+There are issues:
+
+* Link not correct #1
+* App not included
+* More information
 
 ## Next steps
 I hope to submit this to the AppStore later this year with working code, with the idea of adding future police forces into the system.
