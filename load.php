@@ -29,7 +29,7 @@ function runCheck($url,$debug = FALSE) {
 			$x2 = $tl+1;
 			$out[$x]['text'] = NULL; 
 			while($x2<count($lines)) {
-				$out[$x]['text'] .= utf8_encode(trim(strip_tags($lines[$x2])))."\n";
+				$out[$x]['text'] .= trim(strip_tags($lines[$x2]))."\n";
 				$x2++;
 			}
 			$out[$x]['text'] = substr($out[$x]['text'],0,-2);
@@ -44,27 +44,4 @@ $ourArr = runCheck('http://www.nottinghamshire.police.uk/appeals');
 $ourArr = array_merge($ourArr,runCheck('http://www.nottinghamshire.police.uk/appeals?page=0,1'));
 $ourArr = array_merge($ourArr,runCheck('http://www.nottinghamshire.police.uk/appeals?page=0,2'));
 
-echo '<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-	<array>
-		';
-		if(isset($ourArr) && count($ourArr)) {
-			foreach($ourArr as $item) {
-				echo '<dict>
-					<key>name</key>
-					<string>'.$item['title'].'</string>
-					<key>image</key>
-					<string>'.$item['image'].'</string>
-					<key>link</key>
-					<string>'.$item['link'].'</string>
-					<key>date</key>
-					<string>'.$item['date'].'</string>
-					<key>article</key>
-					<string><![CDATA['.$item['text'].']]></string>
-				</dict>'."\n";
-			}
-		}
-		echo '
-	</array>
-</plist>'; ?>
+echo json_encode($ourArr,JSON_PRETTY_PRINT);
