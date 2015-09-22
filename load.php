@@ -17,23 +17,26 @@ function runCheck($url,$debug = FALSE) {
 				if(strpos($line,'field-image')>0) { $il = $ln; }
 				if(strpos($line,'field-title')>0) { $tl = $ln; }
 			}
+			if(strpos($lines[$il],'a href="')!==FALSE) {
+				preg_match_all('#<a\s.*?(?:href=[\'"](.*?)[\'"]).*?>#is', $lines[$il],$matches1); //http://stackoverflow.com/a/18898628
+				$out[$x]['link'] = $matches1[1][0];
+			}
 
+			if(strpos($lines[$il],'src="')!==FALSE) {
+				preg_match_all('#<img\s.*?(?:src=[\'"](.*?)[\'"]).*?>#is', $lines[$il],$matches2); //http://stackoverflow.com/a/18898628
+				$out[$x]['image'] = $matches2[1][0];
+			}
 
-			$start = strpos($lines[$il],'a href="')+5;
-			$out[$x]['link'] = substr($lines[$il],$start,strpos($lines[$il],'"',$start)-$start);
-
-			$start = strpos($lines[$il],'src="')+5;
-			$out[$x]['image'] = substr($lines[$il],$start,strpos($lines[$il],'"',$start)-$start);
 			$out[$x]['title'] = trim(strip_tags($lines[$tl]));
 
 			$x2 = $tl+1;
 			$out[$x]['text'] = NULL; 
 			while($x2<count($lines)) {
-				$out[$x]['text'] .= trim(strip_tags($lines[$x2]))."\n";
+				$out[$x]['text'] .= trim(strip_tags($lines[$x2]));
 				$x2++;
 			}
-			$out[$x]['text'] = substr($out[$x]['text'],0,-2);
-			$out[$x]['date'] = 'Not supplied';
+			$out[$x]['text'] = trim($out[$x]['text']);
+			$out[$x]['date'] = 'Not yet collected';
 			$x++;
 		}
 	}
